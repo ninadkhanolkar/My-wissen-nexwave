@@ -30,8 +30,9 @@ public class Account {
 	private double balance;
 	@Enumerated(EnumType.STRING)
 	private AccountType type;
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinColumn(name="txrId")
+	//@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+   // @JoinColumn(name="txrId")
+	@OneToMany(mappedBy="account",cascade=CascadeType.ALL)
 	List<Transaction> transactions;
 	
 

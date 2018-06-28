@@ -2,6 +2,7 @@ package com.bank.mts.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,7 +22,11 @@ public class Transaction {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int txrId;
+	@ManyToOne
+	@JoinColumn(name="num")
+	Account account;
 	@Temporal(TemporalType.DATE)
+	@Column(name="txrDate")
 	private Date date;
 	@Enumerated(EnumType.STRING)
 	private TransactionType type;
@@ -30,9 +35,16 @@ public class Transaction {
 	private String description;
 	@Enumerated(EnumType.STRING)
 	private Status status;
-//	@ManyToOne
-//	@JoinColumn(name="accountId")
-	//Account account;
+	
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	
 	
 	public Transaction() {
 		// TODO Auto-generated constructor stub
@@ -100,6 +112,13 @@ public class Transaction {
 
 	public Status getStatus() {
 		return status;
+	}
+
+	@Override
+	public String toString() {
+		return "Transaction [txrId=" + txrId + ", account=" + account + ", date=" + date + ", type=" + type
+				+ ", amount=" + amount + ", closingAmount=" + closingAmount + ", description=" + description
+				+ ", status=" + status + "]";
 	}
 
 	public void setStatus(Status status) {
